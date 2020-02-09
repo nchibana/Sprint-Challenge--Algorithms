@@ -92,40 +92,28 @@ class SortingRobot:
         """
         return self._light == "ON"
 
-      def sort(self):
-    """
-    Sort the robot's list.
-    """
-    self.swap_item()
-    # for _ in range(len(self._list)):
-    while self.can_move_right() == True:
-        # for _ in range(len(self._list)):
-        # self.set_light_off()
-        self.move_right()
-        # if self.compare_item() == None:
-        #     self.swap_item()
-        #     self.move_right()
-        #     if self.compare_item() == -1:
-        #       self.move_right()
-        if self.compare_item() == -1:
-            self.move_right()
-            # self.move_left()
-            # self.swap_item()
-            # self.set_light_on()
-        else:
-            self.swap_item()
-            self.set_light_on()
-        if self.set_light_on() == False:
-            break
-    else:
-        while self.can_move_left() == True:
-            self.move_left()
-        while self.compare_item() != None:
-            self.move_right()
+    def sort(self):
+        """
+        Sort the robot's list.
+        """
         self.swap_item()
-        self.move_right()
-        self.swap_item()
-    return self._list
+        for _ in range(len(self._list)):
+            while self.can_move_right() == True:
+                self.move_right()
+                if self.compare_item() == -1:
+                    continue
+                else:
+                    self.swap_item()
+            else:
+                while self.can_move_left() == True:
+                    self.move_left()
+                while self.compare_item() != None:
+                    self.move_right()
+                self.swap_item()
+                self.move_right()
+                self.swap_item()
+        self._list.pop()
+        return self._list
 
 
 if __name__ == "__main__":
